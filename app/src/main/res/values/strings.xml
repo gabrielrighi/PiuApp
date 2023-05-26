@@ -103,11 +103,11 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="title_activity_record">Gravação</string>
-    <string name="title_activity_history">Histórico</string>
+    <string name="title_activity_history">Histórico de observações</string>
     <string name="title_activity_audio"></string>
     <string name="title_activity_recon">ReconActivity</string>
     <string name="audio_record_id">audio_record_id</string>
     <string name="audio_record_path">audio_record_path</string>
-    <string name="title_activity_retorno">Espécies reconhecidas</string>
+    <string name="title_activity_retorno">Espécies identificadas</string>
     <string name="title_activity_detalhes"></string>
 </resources>
