@@ -85,6 +85,15 @@ public class AudioActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                if(mediaPlayer != null) {
+                    mediaPlayer.pause();
+                    mediaPlayer.release();
+                    mediaPlayer = null;
+                }
+
+                btnStop.setVisibility(View.GONE);
+                btnListen.setVisibility(View.VISIBLE);
+
                 b64String = AudioFileUtils.convertAudioToBase64(recArquivo);
 
                 MyAsyncTasks myAsyncTasks = new MyAsyncTasks();
@@ -122,6 +131,15 @@ public class AudioActivity extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(mediaPlayer != null) {
+                    mediaPlayer.pause();
+                    mediaPlayer.release();
+                    mediaPlayer = null;
+                }
+
+                btnStop.setVisibility(View.GONE);
+                btnListen.setVisibility(View.VISIBLE);
+
                 dbHandler.deleteGravacaoData(idGravacao);
 
                 Intent mainAct = new Intent(AudioActivity.this,MainActivity.class);
@@ -150,6 +168,15 @@ public class AudioActivity extends AppCompatActivity {
     }
 
     public void onBackPressed(){
+        if(mediaPlayer != null) {
+            mediaPlayer.pause();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+
+        btnStop.setVisibility(View.GONE);
+        btnListen.setVisibility(View.VISIBLE);
+
         Intent mainActivity = new Intent(AudioActivity.this,MainActivity.class);
         mainActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(mainActivity);
