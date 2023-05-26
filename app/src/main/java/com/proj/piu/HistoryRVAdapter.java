@@ -1,5 +1,6 @@
 package com.proj.piu;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -49,12 +50,14 @@ public class HistoryRVAdapter extends RecyclerView.Adapter<HistoryRVAdapter.View
                     retornoAct.putExtra("idGravacao",idGravacao);
 
                     context.startActivity(retornoAct);
+                    ((Activity)context).finish();
                 }else{
                     Intent audioAct = new Intent(context,AudioActivity.class);
 
                     audioAct.putExtra("idGravacao",idGravacao);
 
                     context.startActivity(audioAct);
+                    ((Activity)context).finish();
                 }
 
             }
