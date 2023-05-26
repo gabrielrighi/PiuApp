@@ -15,6 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -189,6 +190,7 @@ public class AudioActivity extends AppCompatActivity {
             progressDialog.setMessage("Identificando...");
             progressDialog.setCancelable(false);
             progressDialog.show();
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         }
 
@@ -233,6 +235,7 @@ public class AudioActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             // show results
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             progressDialog.dismiss();
             try{
                 JSONObject reconResult = new JSONObject(s);

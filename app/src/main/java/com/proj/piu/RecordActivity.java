@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +59,7 @@ public class RecordActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if(startRecording()){
+                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                     recordButton.setEnabled(false);
                     recordButton.setVisibility(View.GONE);
                     recordingStatus.setText("Gravando\n" + mFileName);
@@ -81,6 +83,8 @@ public class RecordActivity extends AppCompatActivity {
 
                 recordButton.setVisibility(View.VISIBLE);
                 recordButton.setEnabled(true);
+
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
                 Intent audioActivity = new Intent(RecordActivity.this,AudioActivity.class);
                 audioActivity.putExtra("idGravacao",idGravacao);
