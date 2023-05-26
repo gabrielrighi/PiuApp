@@ -76,7 +76,8 @@ public class AudioActivity extends AppCompatActivity {
         recDataHora = reconData.getDataHora();
         recArquivo = reconData.getArquivo();
 
-        txtRecId.setText(Long.toString(idGravacao));
+        //txtRecId.setText(Long.toString(idGravacao));
+        txtRecId.setText("Lendo o arquivo:");
         txtRecPath.setText(recArquivo);
 
         setPlayer();

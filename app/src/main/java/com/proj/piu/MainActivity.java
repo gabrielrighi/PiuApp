@@ -44,25 +44,29 @@ public class MainActivity extends AppCompatActivity {
         btnRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent recordIntent = new Intent(MainActivity.this, RecordActivity.class);
-                MainActivity.this.startActivity(recordIntent);
-
+                if(checkPermissions()) {
+                    Intent recordIntent = new Intent(MainActivity.this, RecordActivity.class);
+                    MainActivity.this.startActivity(recordIntent);
+                }else{
+                    requestPermissions();
+                }
             }
         });
 
         btnHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent historyIntent = new Intent(MainActivity.this, HistoryActivity.class);
-                MainActivity.this.startActivity(historyIntent);
-
+                if(checkPermissions()) {
+                    Intent historyIntent = new Intent(MainActivity.this, HistoryActivity.class);
+                    MainActivity.this.startActivity(historyIntent);
+                }else{
+                    requestPermissions();
+                }
             }
         });
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -82,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
