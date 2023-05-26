@@ -2,6 +2,8 @@ package com.proj.piu;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +20,7 @@ public class RetornoActivity extends AppCompatActivity {
     private RetornoRVAdapter retornoRVAdapter;
     private RecyclerView retornoRV;
     private long idGravacao;
+    private Button btnDelete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,8 @@ public class RetornoActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         TextView txtMensagem = findViewById(R.id.txtMensagem);
+        btnDelete = findViewById(R.id.btnDelete);
+        btnDelete.setVisibility(View.GONE);
 
         retornoModalArrayList = new ArrayList<>();
         dbHandler = new DBHandler(RetornoActivity.this);
@@ -44,6 +49,18 @@ public class RetornoActivity extends AppCompatActivity {
             retornoRV.setAdapter(retornoRVAdapter);
         }else{
             txtMensagem.setText("A vocalização não foi identificada");
+            btnDelete.setVisibility(View.VISIBLE);
+
+            btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dbHandler.deleteGravacaoData(idGravacao);
+
+                    Intent mainAct = new Intent(RetornoActivity.this,MainActivity.class);
+                    RetornoActivity.this.startActivity(mainAct);
+                    finish();
+                }
+            });
         }
 
 
