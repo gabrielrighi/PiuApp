@@ -1,4 +1,4 @@
-package com.example.piu;
+package com.proj.piu;
 
 import org.junit.Test;
 

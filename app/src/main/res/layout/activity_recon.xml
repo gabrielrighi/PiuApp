@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ReconActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -20,32 +20,14 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!--<include layout="@layout/content_main" />-->
+    <include layout="@layout/content_recon" />
 
-    <ImageView
-        android:id="@+id/img_sabia"
-        android:layout_width="152dp"
-        android:layout_height="152dp"
-        android:layout_gravity="center|top"
-        android:layout_marginTop="100dp"
-        app:srcCompat="@drawable/sabi__laranjeira___copy" />
-
-    <Button
-        android:id="@+id/btnRecord"
-        android:layout_width="235dp"
-        android:layout_height="97dp"
-        android:layout_gravity="center"
-        android:text="Reconhecer" />
-
-    <Button
-        android:id="@+id/btnHistory"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
-        android:text="Historico"
-        app:layout_anchor="@+id/btnRecord"
-        app:layout_anchorGravity="bottom|center" />
-
-
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_dialog_email" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

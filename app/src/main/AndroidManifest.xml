@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.piu">
+    package="com.proj.piu">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -10,15 +10,32 @@
 
     <application
         android:allowBackup="true"
+        android:requestLegacyExternalStorage="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Piu">
         <activity
+            android:name=".DetalhesActivity"
+            android:label="@string/title_activity_detalhes"
+            android:theme="@style/Theme.Piu.NoActionBar"></activity>
+        <activity
+            android:name=".RetornoActivity"
+            android:label="@string/title_activity_retorno"
+            android:theme="@style/Theme.Piu.NoActionBar" />
+        <activity
+            android:name=".AudioActivity"
+            android:label="@string/title_activity_audio"
+            android:theme="@style/Theme.Piu.NoActionBar" />
+        <activity
+            android:name=".HistoryActivity"
+            android:label="@string/title_activity_history"
+            android:theme="@style/Theme.Piu.NoActionBar" />
+        <activity
             android:name=".RecordActivity"
             android:label="@string/title_activity_record"
-            android:theme="@style/Theme.Piu.NoActionBar"></activity>
+            android:theme="@style/Theme.Piu.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
