@@ -34,7 +34,8 @@
         app:layout_anchor="@+id/include2"
         app:layout_anchorGravity="center"
         app:maxImageSize="72dp"
-        app:srcCompat="@drawable/ic_baseline_mic_48" />
+        app:srcCompat="@drawable/ic_baseline_mic_48"
+        android:backgroundTint="@color/yellow_400"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabStop"
@@ -46,7 +47,8 @@
         app:layout_anchor="@+id/include2"
         app:layout_anchorGravity="center"
         app:maxImageSize="72dp"
-        app:srcCompat="@android:drawable/ic_media_pause" />
+        app:srcCompat="@android:drawable/ic_media_pause"
+        android:backgroundTint="@color/yellow_400"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabStopOld"
