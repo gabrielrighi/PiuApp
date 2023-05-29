@@ -2,6 +2,7 @@ package com.proj.piu;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
@@ -46,6 +47,7 @@ public class RecordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(Color.BLACK);
         setSupportActionBar(toolbar);
 
         TextView recordingStatus = findViewById(R.id.txtRecStatus);

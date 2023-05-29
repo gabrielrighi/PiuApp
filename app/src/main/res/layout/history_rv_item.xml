@@ -22,7 +22,6 @@
             android:fontFamily="sans-serif"
             android:padding="3dp"
             android:text="Nome comum"
-            android:textColor="@color/black"
             android:textFontWeight="700"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -41,7 +40,6 @@
                 android:layout_weight="1"
                 android:padding="3dp"
                 android:text="Especie"
-                android:textColor="@color/black"
                 android:textStyle="italic" />
 
 
@@ -53,8 +51,7 @@
                 android:layout_weight="1"
                 android:padding="3dp"
                 android:text="31/12/1970 12:00:00"
-                android:textAlignment="viewEnd"
-                android:textColor="@color/black" />
+                android:textAlignment="viewEnd" />
 
         </LinearLayout>
 

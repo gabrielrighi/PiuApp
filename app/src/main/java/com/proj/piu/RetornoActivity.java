@@ -1,6 +1,7 @@
 package com.proj.piu;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +28,7 @@ public class RetornoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retorno);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(Color.BLACK);
         setSupportActionBar(toolbar);
         TextView txtMensagem = findViewById(R.id.txtMensagem);
         btnDelete = findViewById(R.id.btnDelete);

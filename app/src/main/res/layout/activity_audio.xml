@@ -55,7 +55,7 @@
         android:layout_width="235dp"
         android:layout_height="97dp"
         android:layout_gravity="center"
-        android:text="Reconhecer" />
+        android:text="Identificar" />
 
     <Button
         android:id="@+id/btnListen"

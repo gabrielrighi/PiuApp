@@ -2,6 +2,7 @@ package com.proj.piu;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
@@ -55,6 +56,7 @@ public class AudioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audio);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(Color.BLACK);
         setSupportActionBar(toolbar);
 
         txtRecId = findViewById(R.id.txtRecId);

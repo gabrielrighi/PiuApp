@@ -28,7 +28,7 @@
         android:layout_height="152dp"
         android:layout_gravity="center|top"
         android:layout_marginTop="100dp"
-        app:srcCompat="@drawable/sabi__laranjeira___copy" />
+        app:srcCompat="@drawable/sabia_nobg" />
 
     <Button
         android:id="@+id/btnRecord"
