@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class DBHandler extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "piuDatabase.db";
-    private static final int DB_VERSION = 2;
+    private static final int DB_VERSION = 3;
     private static final String TB_ESPECIES = "tbEspecies";
     private static final String COL_ESPECIES_ESPECIE = "especie";
     private static final String COL_ESPECIES_NOMECIENTIFICO = "nome_cientifico";
@@ -234,12 +234,11 @@ public class DBHandler extends SQLiteOpenHelper {
                 "FROM tbGravacoes " +
                 "LEFT JOIN (SELECT " +
                 "        tbRetornos.id_gravacao, " +
-                "        tbRetornos.especie " +
-                "    FROM tbRetornos " +
-                "    GROUP BY tbRetornos.id_gravacao " +
-                "    HAVING MAX(tbRetornos.confianca) " +
-                "    ORDER BY tbRetornos.id_gravacao, tbRetornos.confianca DESC) vwRetornos " +
+                "        tbRetornos.especie, " +
+                "        ROW_NUMBER() OVER (PARTITION BY tbRetornos.id_gravacao ORDER BY tbRetornos.feedback DESC, tbRetornos.confianca DESC) AS rn " +
+                "    FROM tbRetornos) vwRetornos " +
                 "ON tbGravacoes._id = vwRetornos.id_gravacao " +
+                "AND vwRetornos.rn = 1 " +
                 "LEFT JOIN tbEspecies " +
                 "ON vwRetornos.especie = tbEspecies.especie " +
                 "ORDER BY tbGravacoes.datahora DESC";
