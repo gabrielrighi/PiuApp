@@ -37,6 +37,10 @@
             android:label="@string/title_activity_record"
             android:theme="@style/Theme.Piu.NoActionBar" />
         <activity
+            android:name=".EspeciesActivity"
+            android:label="Sobre o Piu!"
+            android:theme="@style/Theme.Piu.NoActionBar" />
+        <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.Piu.NoActionBar">

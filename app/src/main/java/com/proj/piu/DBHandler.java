@@ -234,15 +234,16 @@ public class DBHandler extends SQLiteOpenHelper {
                 "FROM tbGravacoes " +
                 "LEFT JOIN (SELECT " +
                 "        tbRetornos.id_gravacao, " +
-                "        tbRetornos.especie, " +
-                "        ROW_NUMBER() OVER (PARTITION BY tbRetornos.id_gravacao ORDER BY tbRetornos.feedback DESC, tbRetornos.confianca DESC) AS rn " +
-                "    FROM tbRetornos) vwRetornos " +
+                "        tbRetornos.especie " +
+                "    FROM tbRetornos " +
+                "    GROUP BY tbRetornos.id_gravacao " +
+                "    HAVING MAX(tbRetornos.confianca+COALESCE(tbRetornos.feedback,0)) " +
+                "    ORDER BY tbRetornos.id_gravacao, tbRetornos.feedback DESC, tbRetornos.confianca DESC) vwRetornos " +
                 "ON tbGravacoes._id = vwRetornos.id_gravacao " +
-                "AND vwRetornos.rn = 1 " +
                 "LEFT JOIN tbEspecies " +
                 "ON vwRetornos.especie = tbEspecies.especie " +
                 "ORDER BY tbGravacoes.datahora DESC";
-        //Cursor cursorHistory = db.rawQuery("SELECT tbRecons.*, tbEspecies.nomecientifico, tbEspecies.nomecomum  FROM tbRecons LEFT JOIN tbEspecies ON tbRecons.especie = tbEspecies.especie ORDER BY tbRecons.datahora DESC", null);
+
         Cursor cursorHistory = db.rawQuery(query_select_history,null);
 
         ArrayList<HistoryModal> historyModalArrayList = new ArrayList<>();
@@ -272,6 +273,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 "   tbEspecies.especie, " +
                 "   tbEspecies.nome_cientifico, " +
                 "   tbEspecies.nome_comum, " +
+                "   tbRetornos.feedback, " +
                 "   tbRetornos.confianca, " +
                 "   tbGravacoes.datahora " +
                 "FROM tbGravacoes " +
@@ -280,8 +282,8 @@ public class DBHandler extends SQLiteOpenHelper {
                 "LEFT JOIN tbEspecies " +
                 "ON tbRetornos.especie = tbEspecies.especie " +
                 "WHERE tbRetornos.id_gravacao = " + idGravacao + " " +
-                "ORDER BY tbRetornos.confianca DESC";
-        //Cursor cursorHistory = db.rawQuery("SELECT tbRecons.*, tbEspecies.nomecientifico, tbEspecies.nomecomum  FROM tbRecons LEFT JOIN tbEspecies ON tbRecons.especie = tbEspecies.especie ORDER BY tbRecons.datahora DESC", null);
+                "ORDER BY tbRetornos.feedback DESC, tbRetornos.confianca DESC";
+
         Cursor cursorRetorno = db.rawQuery(query_select_retorno,null);
 
         ArrayList<RetornoModal> retornoModalArrayList = new ArrayList<>();
@@ -313,7 +315,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 "    tbGravacoes.enviado  " +
                 "FROM tbGravacoes " +
                 "WHERE tbGravacoes._id = " + idGravacao;
-        //Cursor cursorRow = db.rawQuery("SELECT _id, datahora, arquivo, enviado, especie FROM tbRecons WHERE _id = " + recId,null);
+
         Cursor cursorRow = db.rawQuery(query_select_rowdata,null);
 
         HistoryModal rowData = new HistoryModal();
@@ -343,7 +345,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 "   tbEspecies.url_ebird " +
                 "FROM tbEspecies " +
                 "WHERE especie = '" + idEspecie + "'";
-        //Cursor cursorRow = db.rawQuery("SELECT _id, datahora, arquivo, enviado, especie FROM tbRecons WHERE _id = " + recId,null);
+
         Cursor cursorRow = db.rawQuery(query_select_especiedata,null);
 
         Especies rowData = new Especies();
@@ -362,6 +364,34 @@ public class DBHandler extends SQLiteOpenHelper {
         cursorRow.close();
         return rowData;
 
+    }
+
+    public ArrayList<EspeciesModal> getAllEspecies(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query_select_allespecies = "SELECT " +
+                "   tbEspecies.especie, " +
+                "   tbEspecies.nome_cientifico, " +
+                "   tbEspecies.nome_comum " +
+                "FROM tbEspecies " +
+                "ORDER BY tbEspecies.nome_comum";
+
+        Cursor cursorRow = db.rawQuery(query_select_allespecies,null);
+
+        ArrayList<EspeciesModal> especiesModalArrayList = new ArrayList<>();
+
+        if(cursorRow.moveToFirst()){
+            do {
+                especiesModalArrayList.add(new EspeciesModal(
+                    cursorRow.getString(cursorRow.getColumnIndex(COL_ESPECIES_ESPECIE)),
+                    cursorRow.getString(cursorRow.getColumnIndex(COL_ESPECIES_NOMECIENTIFICO)),
+                    cursorRow.getString(cursorRow.getColumnIndex(COL_ESPECIES_NOMECOMUM))
+                ));
+            }while (cursorRow.moveToNext());
+        }
+
+        cursorRow.close();
+        return especiesModalArrayList;
     }
 
 }

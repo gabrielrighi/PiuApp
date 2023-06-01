@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         //FloatingActionButton fab = findViewById(R.id.fabStop);
         Button btnRecord = findViewById(R.id.btnRecord);
         Button btnHistory = findViewById(R.id.btnHistory);
+        Button btnSobre = findViewById(R.id.btnSobre);
 
         btnRecord.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +65,14 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     requestPermissions();
                 }
+            }
+        });
+
+        btnSobre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sobreIntent = new Intent(MainActivity.this, EspeciesActivity.class);
+                MainActivity.this.startActivity(sobreIntent);
             }
         });
     }

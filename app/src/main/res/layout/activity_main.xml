@@ -46,6 +46,14 @@
         app:layout_anchor="@+id/btnRecord"
         app:layout_anchorGravity="bottom|center" />
 
+    <Button
+        android:id="@+id/btnSobre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        app:layout_anchor="@id/btnHistory"
+        app:layout_anchorGravity="bottom|center"
+        android:text="Sobre" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
