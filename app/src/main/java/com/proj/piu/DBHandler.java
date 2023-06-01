@@ -37,13 +37,7 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String COL_RETORNOS_ESPECIE = "especie";
     private static final String COL_RETORNOS_CONFIANCA = "confianca";
     private static final String COL_RETORNOS_DATAHORA = "datahora";
-
-    /*private static final String TB_RECONS = "tbRecons";
-    private static final String COL_RECONS_DATAHORA = "DATAHORA";
-    private static final String COL_RECONS_LATLON = "LATLON";
-    private static final String COL_RECONS_ARQUIVO = "ARQUIVO";
-    private static final String COL_RECONS_ENVIADO = "ENVIADO";
-    private static final String COL_RECONS_ESPECIE = "ESPECIE";*/
+    private static final String COL_RETORNOS_FEEDBACK = "feedback";
 
     public DBHandler(Context context){
         super(context, DB_NAME, null, DB_VERSION);
@@ -52,21 +46,6 @@ public class DBHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.i("DBHANDLER","Entered onCreate method");
-        /*String tbEspecies = "CREATE TABLE " + TB_ESPECIES + " (" +
-                COL_ESPECIES_ESPECIE + " TEXT PRIMARY KEY," +
-                COL_ESPECIES_NOMECIENTIFICO + " TEXT," +
-                COL_ESPECIES_NOMECOMUM + " TEXT," +
-                COL_ESPECIES_URLWIKIPEDIA + " TEXT," +
-                COL_ESPECIES_URLWIKIAVES + " TEXT," +
-                COL_ESPECIES_URLEBIRD + " TEXT)";
-
-        String tbRecons = "CREATE TABLE " + TB_RECONS + " (" +
-                "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                COL_RECONS_DATAHORA + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP," +
-                COL_RECONS_LATLON + " TEXT," +
-                COL_RECONS_ARQUIVO + " TEXT," +
-                COL_RECONS_ENVIADO + " INTEGER DEFAULT 0," +
-                COL_RECONS_ESPECIE + " TEXT)";*/
 
         String tbEspecies = "CREATE TABLE tbEspecies (" +
                 "especie TEXT PRIMARY KEY," +
@@ -89,7 +68,8 @@ public class DBHandler extends SQLiteOpenHelper {
                 "id_gravacao INTEGER NOT NULL," +
                 "especie TEXT," +
                 "confianca FLOAT," +
-                "datahora TIMESTAMP" +
+                "datahora TIMESTAMP," +
+                "feedback INTEGER" +
                 ")";
 
         String[][] dataEspecies = {
@@ -102,9 +82,11 @@ public class DBHandler extends SQLiteOpenHelper {
                 {"pitangussulphuratus", "Pitangus sulphuratus", "Bem-te-vi", "https://pt.wikipedia.org/wiki/Pitangus_sulphuratus", "https://www.wikiaves.com/wiki/bem-te-vi", "https://ebird.org/species/grekis"},
                 {"troglodytesmusculus", "Troglodytes musculus", "Corruira", "https://pt.wikipedia.org/wiki/Troglodytes_musculus", "https://www.wikiaves.com/wiki/corruira", "https://ebird.org/species/houwre/"},
                 {"turdusrufiventris", "Turdus rufiventris", "Sabia-laranjeira", "https://pt.wikipedia.org/wiki/Turdus_rufiventris", "https://www.wikiaves.com/wiki/sabia-laranjeira", "https://ebird.org/species/rubthr1"},
-                {"vanelluschilensis", "Vanellus chilensis", "Quero-quero", "https://pt.wikipedia.org/wiki/Vanellus_chilensis", "https://www.wikiaves.com/wiki/quero-quero", "https://ebird.org/species/soulap1"},
-                {"euphoniachlorotica", "Euphonia chlorotica", "Fim-fim", "https://pt.wikipedia.org/wiki/Fim-fim", "https://www.wikiaves.com.br/wiki/fim-fim", "https://ebird.org/species/puteup1"}
+                {"vanelluschilensis", "Vanellus chilensis", "Quero-quero", "https://pt.wikipedia.org/wiki/Vanellus_chilensis", "https://www.wikiaves.com/wiki/quero-quero", "https://ebird.org/species/soulap1"}
+                //,{"euphoniachlorotica", "Euphonia chlorotica", "Fim-fim", "https://pt.wikipedia.org/wiki/Fim-fim", "https://www.wikiaves.com.br/wiki/fim-fim", "https://ebird.org/species/puteup1"}
         };
+
+        // Aqui pode ser implementada chamada API para verificar especies suportadas
 
         try{
             Log.i("DBHANDLER","Creating tables");
@@ -135,11 +117,19 @@ public class DBHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
         try{
-            db.execSQL("DROP TABLE IF EXISTS " + TB_RETORNOS);
-            db.execSQL("DROP TABLE IF EXISTS " + TB_GRAVACOES);
-            db.execSQL("DROP TABLE IF EXISTS " + TB_ESPECIES);
+            switch(newVersion){
+                case 3: db.execSQL("DELETE FROM " + TB_ESPECIES + " WHERE especie = 'euphoniachlorotica'");
+                        db.execSQL("ALTER TABLE " + TB_RETORNOS + " ADD COLUMN " + COL_RETORNOS_FEEDBACK + " INTEGER");
+                        break;
+                default: db.execSQL("DROP TABLE IF EXISTS " + TB_RETORNOS);
+                        db.execSQL("DROP TABLE IF EXISTS " + TB_GRAVACOES);
+                        db.execSQL("DROP TABLE IF EXISTS " + TB_ESPECIES);
+                        onCreate(db);
+                        break;
+            }
 
-            onCreate(db);
+
+
         } catch (SQLException e) {
             Log.e("DBHANDLER",e.getMessage());
         }
