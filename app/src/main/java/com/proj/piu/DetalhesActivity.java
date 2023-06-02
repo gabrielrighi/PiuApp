@@ -1,5 +1,6 @@
 package com.proj.piu;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -18,6 +19,7 @@ public class DetalhesActivity extends AppCompatActivity {
     private DBHandler dbHandler;
     private String idEspecie, url, nomeComum;
     private Especies especieData;
+    private WebView webBird;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +29,7 @@ public class DetalhesActivity extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.BLACK);
         setSupportActionBar(toolbar);
 
-        WebView webBird = findViewById(R.id.webBird);
+        webBird = findViewById(R.id.webBird);
 
         dbHandler = new DBHandler(DetalhesActivity.this);
 
@@ -43,5 +45,19 @@ public class DetalhesActivity extends AppCompatActivity {
         webBird.loadUrl(url);
         webBird.getSettings().setJavaScriptEnabled(true);
         webBird.setWebViewClient(new WebViewClient());
+    }
+
+    public void onBackPressed(){
+        webBird.clearHistory();
+        webBird.stopLoading();
+        webBird.clearView();
+        webBird.clearCache(true);
+        webBird.destroyDrawingCache();
+        webBird.setWebChromeClient(null);
+        webBird.setWebViewClient(null);
+        webBird.getSettings().setJavaScriptEnabled(false);
+        webBird.removeAllViews();
+        webBird.destroy();
+        super.onBackPressed();
     }
 }
