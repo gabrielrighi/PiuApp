@@ -34,15 +34,18 @@
         android:id="@+id/txtMensagem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Clique sobre a espécie identificada para ver mais detalhes"
         android:layout_gravity="top|center"
-        android:layout_marginTop="70dp"/>
+        android:layout_marginTop="70dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="A listagem abaixo exibe três possibilidades de identificação\nClique sobre a espécie identificada para ver mais detalhes"
+        android:textAlignment="center" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/idRetornoRVHistory"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="102dp">
+        android:layout_marginTop="120dp">
 
     </androidx.recyclerview.widget.RecyclerView>
 
